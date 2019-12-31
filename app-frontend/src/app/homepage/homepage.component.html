@@ -1,4 +1,37 @@
-Hello!
-<p>homepage works!</p>
+<div class="page-layout">
 
-<img src="/assets/favicon.ico">
+    <div class="header">
+        <mat-toolbar color=primary fxLayout="row" fxLayoutAlign="space-between center"> 
+            <div></div>
+            <div>-Insert Name Here- Movie Database</div>
+            <div></div>
+        </mat-toolbar>
+    </div>
+
+    <div class="content" style="padding-top: 10%">
+
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div></div>
+
+            <div>
+                <form class="example-form" fxLayout="row" fxLayoutAlign="start center">
+                    <mat-form-field appearance=outline style="width: 500px">
+                        <input matInput placeholder="Type in a movie">
+                    </mat-form-field>
+                    <div style="padding-left: 20px"></div>
+                    <button mat-raised-button type="submit" color="primary">Go!</button>
+
+                </form>
+            </div>
+            <div></div>
+        </div>
+
+
+    </div>
+
+    <div class="footer">
+
+
+    </div>
+
+</div>
