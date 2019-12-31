@@ -25,9 +25,8 @@ export class TestComponent implements OnInit {
 
   vidIds: string;
   vidSnippets = [];
+  ytApiKey: string;
 
-  // ytApiKey = 'AIzaSyC4xTG0Dq-KkrZ9Twyx27ZE7OZc1EQwDtU';
-  ytApiKey = 'AIzaSyCjqYc_0rN4G4rGfaLFudHN4aDzYN1ccW4';
   videoIds = [];
 
   ngOnInit() {
@@ -58,6 +57,10 @@ export class TestComponent implements OnInit {
     //   this.vidIds = vidIds.join('\n');
 
     // });
+    this.readFile('/assets/apikey.env').toPromise().then((data: string) => {
+      const keys = data.split('\n');
+      this.ytApiKey = keys[0];
+    }).then(() => {
 
     this.readFile('/assets/testset_vididsOnly.txt').toPromise().then((data: string) => {
       // console.log(data);
@@ -68,6 +71,7 @@ export class TestComponent implements OnInit {
     }).then(() => {
       this.getVideoNameById();
     });
+  });
 
     // this.readFile('/assets/test100.json').toPromise().then((data: string) => {
     //   // console.log(data);
