@@ -6,13 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-
-
-/**
- * api key
- * AIzaSyC4xTG0Dq-KkrZ9Twyx27ZE7OZc1EQwDtU
- */
-
+import { Router } from '@angular/router';
+import { FileService } from '../_service/file-service.service';
 
 @Component({
   selector: 'app-homepage',
@@ -23,8 +18,10 @@ import { map, startWith } from 'rxjs/operators';
 export class HomepageComponent implements OnInit {
 
   constructor(
+    private router: Router,
     private http: HttpClient,
-    private sanitizer: DomSanitizer) { }
+    private fileService: FileService,
+  ) { }
 
   resultData: any;
   movieNames: any;
@@ -38,39 +35,23 @@ export class HomepageComponent implements OnInit {
   myForm = new FormGroup({ myControl: this.myControl });
 
   autoCompleteOptions: { id: string, title: string }[] = [];
-  filteredOptions: Observable<{id: string, title: string}[]>;
+  filteredOptions: Observable<{ id: string, title: string }[]>;
 
   isLoaded: boolean;
 
-  // ytApiKey = 'AIzaSyC4xTG0Dq-KkrZ9Twyx27ZE7OZc1EQwDtU';
-  ytApiKey = 'AIzaSyCjqYc_0rN4G4rGfaLFudHN4aDzYN1ccW4';
   videoIds = [];
 
   ngOnInit() {
 
-    this.readFile('/assets/results.csv').toPromise().then((data: string) => {
-      // console.log(data);
+    // this.readFile('/assets/results.csv').toPromise().then((data: string) => {
+    //   // console.log(data);
 
-    });
+    // });
 
-    this.readFile('/assets/testset_movies.csv').toPromise().then((data: string) => {
-      // console.log(data);
-      let dataLineSeparated = data.split('\n');
-      dataLineSeparated = dataLineSeparated.slice(1);
-      for (const line of dataLineSeparated) {
-        const cells = line.split(',');
-        if (cells.length === 2) {
-          this.allMovies.push({ id: cells[0], title: cells[1] });
-        } else {
-          //TODO
-        }
-      }
-
+    this.fileService.getAllMovies().then((result) => {
+      console.log(result);
+      this.allMovies = result;
       this.autoCompleteOptions = this.allMovies;
-      console.log(this.allMovies);
-      console.log(this.autoCompleteOptions);
-      console.log(this.autoCompleteOptions[0]);
-
 
     }).then(() => {
       this.filteredOptions = this.myControl.valueChanges
@@ -78,23 +59,11 @@ export class HomepageComponent implements OnInit {
           startWith(''),
           map(value => this._filter(value))
         );
-      console.log(this.filteredOptions);
       this.isLoaded = true;
     });
-
-
-
-
-
-
   }
 
-
-  private readFile(filePath: string) {
-    return this.http.get(filePath, { responseType: 'text' as 'json' });
-  }
-
-  private _filter(value: string): {id: string, title: string}[] {
+  private _filter(value: string): { id: string, title: string }[] {
     const filterValue = value.toLowerCase();
 
     if (!isNullOrUndefined(this.myControl.value) && this.myControl.value.length >= 2) {
@@ -111,9 +80,8 @@ export class HomepageComponent implements OnInit {
   }
 
   onOptionClick(option: any) {
-    //TODO
-    console.log('clicked');
-    console.log(option);
+    this.router.navigateByUrl(`result/${option.id}`);
+
   }
 
 }

@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { Route, RouterModule, PreloadAllModules } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { FileService } from './_service/file-service.service';
 
 const routes: Route[] =   [{ path: '**', redirectTo: 'homepage', pathMatch: 'full' }];
 
@@ -27,7 +28,7 @@ const routes: Route[] =   [{ path: '**', redirectTo: 'homepage', pathMatch: 'ful
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [FileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
