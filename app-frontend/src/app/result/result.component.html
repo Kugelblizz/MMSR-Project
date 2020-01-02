@@ -1,6 +1,6 @@
 <div class="page-layout">
 
-    <div class="header" style="position: sticky; top: 0px; z-index: 1;" fxLayout="row"
+    <div class="header" style="position: sticky; top: 0px; z-index: 250;" fxLayout="row"
         fxLayoutAlign="space-between center">
 
         <div>
@@ -22,9 +22,9 @@
         Search another:
     </div>
 
-    <div class="header-overlay" style="position: sticky; top: 0px; z-index: 2;">
+    <div class="header-overlay" style="position: sticky; top: 0px;  z-index: 251;">
 
-        <form class="form" [formGroup]=myForm>
+        <form class="form" [formGroup]=myForm style="position: sticky; top: 0px; ">
             <mat-form-field appearance=outline style="width: 25%; padding-left: 5px; padding-top: 3px">
                 <input matInput placeholder="Type in a Movie or Year" formControlName="myControl"
                     [matAutocomplete]="auto">
@@ -39,6 +39,8 @@
                 </mat-option>
             </mat-autocomplete>
         </form>
+
+    </div>
         <div class="content" *ngIf="isLoaded">
             <div class="info-row mat-elevation-z8">
 
