@@ -1,21 +1,84 @@
 <div class="page-layout">
 
-    <div class="header">
-        <mat-toolbar color=primary fxLayout="row" fxLayoutAlign="space-between center">
-            <div>Result for ...</div>
+    <div class="header" style="position: sticky; top: 0px; z-index: 1;" fxLayout="row"
+        fxLayoutAlign="space-between center">
+
+        <div>
+        </div>
+
+        <div style="padding: 15px 0;">
+            <div *ngIf="isLoaded">Result for {{movieEntry.title}}</div>
             <div>-Insert Name Here- Movie Database</div>
+        </div>
+
+        <div class="back-icon" (click)="returnClicked()" matTooltip="Return to Homepage">
+            <mat-icon>
+                keyboard_return
+            </mat-icon>
+        </div>
+    </div>
+
+    <div class="above-header-overlay">
+        Search another:
+    </div>
+
+    <div class="header-overlay" style="position: sticky; top: 0px; z-index: 2;">
+
+        <form class="form" [formGroup]=myForm>
+            <mat-form-field appearance=outline style="width: 25%; padding-left: 5px; padding-top: 3px">
+                <input matInput placeholder="Type in a Movie or Year" formControlName="myControl"
+                    [matAutocomplete]="auto">
+            </mat-form-field>
+            <!-- <div style="padding-left: 20px"></div>
+                <button mat-raised-button type="submit" color="primary" (click)="printMyControl()">Go!</button> -->
+
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.title"
+                    (click)="onOptionClick(option)">
+                    {{ option.title }}
+                </mat-option>
+            </mat-autocomplete>
+        </form>
+        <div class="content" *ngIf="isLoaded">
+            <div class="info-row mat-elevation-z8">
+
+            </div>
+
+            <div class="results-area">
+                <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                    <ng-container matColumnDef="movieId">
+                        <mat-header-cell *matHeaderCellDef> Movie ID </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.movieId}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="movieclipId">
+                        <mat-header-cell *matHeaderCellDef> Movieclip ID </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.movieclipId}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="sim">
+                        <mat-header-cell *matHeaderCellDef> Sim </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.sim}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="rank">
+                        <mat-header-cell *matHeaderCellDef> Rank </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.rank}} </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+            </div>
+
+            <div style="padding-bottom: 55px"></div>
+        </div>
+
+        <div class="footer" fxLayout="column" fxLayoutAlign="space-between center"
+            style="position: fixed; right: 0px; left: 0px; bottom: 0px; font-family: 'Roboto'; background: rgb(97, 147, 255); height: 50px; text-align: center; color: white">
             <div></div>
-        </mat-toolbar>
-    </div>
-
-    <div class="content" style="padding-top: 5%" *ngIf="isLoaded">
-
-       
+            <div> &copy; 2020 - Alexander Kopp, Clemens Bartl, Elias Gander, Marta Perea</div>
+            <div></div>
+        </div>
 
     </div>
-
-    <div class="footer" style="position: fixed; right: 0px; left: 0px; bottom: 0px; font-family: 'Roboto'">
-        &copy; 2020 - Alexander Kopp, Clemens Bartl, Elias Gander, Marta Perea
-    </div>
-
-</div>

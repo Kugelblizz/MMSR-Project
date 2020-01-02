@@ -4,7 +4,10 @@ import { ResultComponent } from './result.component';
 import { RouterModule, Route } from '@angular/router';
 import {
   MatCommonModule, MatFormFieldModule, MatInputModule, MatToolbarModule, MatButtonModule,
-  MatAutocompleteModule } from '@angular/material';
+  MatAutocompleteModule, 
+  MatTableModule,
+  MatIconModule,
+  MatTooltipModule} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -25,6 +28,9 @@ const routes: Route[] = [
     MatToolbarModule,
     MatButtonModule,
     MatAutocompleteModule,
+    MatTableModule,
+    MatIconModule,
+    MatTooltipModule,
 
     RouterModule.forChild(routes),
   ]

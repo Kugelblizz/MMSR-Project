@@ -1,14 +1,64 @@
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
 
+
 .page-layout {
     width: 100%;
+    font-family: 'Roboto';
 
     .header {
         width: 100%;
+        background: #3f51b5;
+        color:  white;
+        height: 75px;
+        font-weight: 500;
+        font-size: 20px;
+        text-align: center;
+
+        .back-icon {
+            margin-right: 20px; 
+            padding: 5px 5px 0 5px; 
+            outline-color: white; 
+            outline-style: solid; 
+            outline-width: 2px; 
+            cursor: pointer;
+        }
+
+        .back-icon:hover {
+            color: #3f51b5;
+            outline-color: #3f51b5;
+            background: white;
+        }
+    }
+
+    
+
+    .above-header-overlay {
+        margin-top: 12px;
+        padding-left: 5px;
+        padding-top: 25px;
+    }
+
+    .header-overlay {
+    
+    }
+
+    .info-row {
+
+        margin-left: 12px;
+        margin-right: 12px;
+
+
     }
 
     .content {
-        width: 100%;
+        margin-left: 12px;
+        margin-right: 12px;
+        margin-bottom: 12px;
+
+
+        .results-area {
+
+        }
 
     }
 
@@ -20,3 +70,8 @@
 
 
 }
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white !important;
+    border-radius: 5px !important;
+  }

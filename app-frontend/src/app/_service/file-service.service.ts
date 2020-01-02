@@ -10,6 +10,7 @@ export class FileService {
   }
 
   allMovies: { id: string, title: string }[];
+  allResults: {movieId: string, movieclipId: string, sim: string, rank: string}[];
 
 
   public async getAllMovies() {
@@ -20,13 +21,39 @@ export class FileService {
     }
   }
 
+  public async getResultsForMovie(movieId: string) {
+    if (isNullOrUndefined(this.allResults)) {
+      return this.readResultsFile().then(() => {
+        return this.filterByMovieId(movieId);
+      });
+    } else {
+      return this.filterByMovieId(movieId);
+    }
+  }
 
+  public async getMovieForId(movieId: string) {
+    return this.allMovies.find((entry) => {
+      return entry.id === movieId;
+    });
+  }
+
+  private filterByMovieId(movieId: string) {
+    return this.allResults.filter((entry) => {
+      return entry.movieId === movieId;
+    });
+  }
 
 
   private readResultsFile() {
-    return this.readFile('/assets/results.csv').toPromise().then((data: string) => {
-      // console.log(data);
+    return this.readFile('/assets/results2.csv').toPromise().then((data: string) => {
+      const allResults: {movieId: string, movieclipId: string, sim: string, rank: string}[] = [];
+      const dataLineSeparated = data.split('\n');
+      for (const line of dataLineSeparated) {
+        const cells = line.split(',');
+        allResults.push({movieId: cells[0], movieclipId: cells[1], sim: cells[2], rank: cells[3]});
+      }
 
+      this.allResults = allResults;
     });
   }
 
@@ -39,6 +66,7 @@ export class FileService {
       dataLineSeparated = dataLineSeparated.slice(1);
       for (const line of dataLineSeparated) {
         const cells = line.split(',');
+
         if (cells.length === 2) {
           allMovies.push({ id: cells[0], title: cells[1] });
 
