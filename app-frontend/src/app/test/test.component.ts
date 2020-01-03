@@ -3,11 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { isNullOrUndefined, isNull } from 'util';
 import { DomSanitizer } from '@angular/platform-browser';
 
-/**
- * api key
- * AIzaSyC4xTG0Dq-KkrZ9Twyx27ZE7OZc1EQwDtU
- */
-
 
 @Component({
   selector: 'app-test',

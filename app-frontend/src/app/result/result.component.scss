@@ -25,7 +25,7 @@
 
         .back-icon:hover {
             color: #3f51b5;
-            outline-color: #3f51b5;
+            outline-color: white;
             background: white;
         }
     }
@@ -54,7 +54,58 @@
 
 
         .results-area {
+            width: 80%;
+            padding: 12px;
 
+            .mat-column-thumbnail {
+                padding-left: 3px;
+                flex: 0 0 150px;
+
+                cursor: default;
+            }
+
+            .mat-column-title {
+                padding-left: 3px;
+                flex: 0 0 500px;
+                cursor: default;
+
+                    font-size: 18px;
+                
+            }
+
+            .mat-column-action {
+                padding-left: 3px;
+                padding-right: 0px;
+                flex: 0 0 150px;
+            }
+
+            mat-row:hover {
+                background: #3f51b5;
+                color: white;
+                mat-cell {
+                    color: white;
+                }
+              }
+
+              .watch-clip-button {
+                padding: 10px 10px 10px 10px; 
+                outline-color: white; 
+                background: #3f51b5;
+                color: white;
+                outline-style: solid; 
+                outline-width: 2px; 
+                cursor: pointer;
+                text-decoration: none;
+                font-weight: 500;
+              }
+
+              .watch-clip-button:hover {
+                outline-color: #3f51b5; 
+                background: white;
+                color: #3f51b5;
+              }
+
+            
         }
 
     }
@@ -72,3 +123,7 @@
     background-color: white !important;
     border-radius: 5px !important;
   }
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix  {
+    padding: 0em 0 10px 0;
+}

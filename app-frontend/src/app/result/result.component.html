@@ -1,6 +1,6 @@
 <div class="page-layout">
 
-    <div class="header" style="position: sticky; top: 0px; z-index: 250;" fxLayout="row"
+    <div class="header" style="position: sticky; top: 0px; right: 0px; left: 0px; z-index: 250;" fxLayout="row"
         fxLayoutAlign="space-between center">
 
         <div>
@@ -22,10 +22,10 @@
         Search another:
     </div>
 
-    <div class="header-overlay" style="position: sticky; top: 0px;  z-index: 251;">
+    <div class="header-overlay" style="position: sticky; top: 0px; left: 0px; width: 50%; z-index: 251;">
 
         <form class="form" [formGroup]=myForm style="position: sticky; top: 0px; ">
-            <mat-form-field appearance=outline style="width: 25%; padding-left: 5px; padding-top: 3px">
+            <mat-form-field appearance=outline style="width: 50%; padding-left: 15px; padding-top: 15px">
                 <input matInput placeholder="Type in a Movie or Year" formControlName="myControl"
                     [matAutocomplete]="auto">
             </mat-form-field>
@@ -41,46 +41,83 @@
         </form>
 
     </div>
-        <div class="content" *ngIf="isLoaded">
-            <div class="info-row mat-elevation-z8">
+    <div class="content" *ngIf="isLoaded">
+        <!-- <div class="info-row mat-elevation-z8">
 
-            </div>
-
-            <div class="results-area">
-                <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-                    <ng-container matColumnDef="movieId">
-                        <mat-header-cell *matHeaderCellDef> Movie ID </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.movieId}} </mat-cell>
+        </div> -->
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div></div>
+            <div class="results-area mat-elevation-z8">
+                <div fxLayout="row" fxLayoutAlign="end center">
+                    <mat-slide-toggle [checked]="showSimilarity" (toggleChange)="toggleSim()">toggle similarity
+                    </mat-slide-toggle>
+                </div>
+                <mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="thumbnail">
+                        <mat-header-cell *matHeaderCellDef> Thumbnail </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <img [src]="getThumbnailPath(element)">
+                        </mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="movieclipId">
-                        <mat-header-cell *matHeaderCellDef> Movieclip ID </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.movieclipId}} </mat-cell>
+                    <ng-container matColumnDef="title">
+                        <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.youtubeInfo.title}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="date">
+                        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <div fxLayout="column">
+                                <div style="font-size: 10px">
+                                    published
+                                </div>
+                                <div style="padding-left: 5px">
+                                    {{getPublishedAt(element)}}
+                                </div>
+                            </div>
+                        </mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="sim">
                         <mat-header-cell *matHeaderCellDef> Sim </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.sim}} </mat-cell>
+                        <mat-cell *matCellDef="let element">
+                            <div fxLayout="column">
+                                <div style="font-size: 10px">
+                                    similarity
+                                </div>
+                                <div style="padding-left: 5px">
+                                    {{element.sim}}
+                                </div>
+                            </div>
+                        </mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="rank">
-                        <mat-header-cell *matHeaderCellDef> Rank </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.rank}} </mat-cell>
+                    <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <a class="watch-clip-button" [href]="getYoutubeLink(element)" target="_blank">
+                                watch clip
+                            </a>
+                        </mat-cell>
                     </ng-container>
 
-                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <!-- <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row> -->
                     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                 </mat-table>
             </div>
 
-            <div style="padding-bottom: 55px"></div>
-        </div>
-
-        <div class="footer" fxLayout="column" fxLayoutAlign="space-between center"
-            style="position: fixed; right: 0px; left: 0px; bottom: 0px; font-family: 'Roboto'; background: rgb(97, 147, 255); height: 50px; text-align: center; color: white">
             <div></div>
-            <div> &copy; 2020 - Alexander Kopp, Clemens Bartl, Elias Gander, Marta Perea</div>
-            <div></div>
-        </div>
 
+        </div>
+        <div style="padding-bottom: 55px"></div>
     </div>
+
+    <div class="footer" fxLayout="column" fxLayoutAlign="space-between center"
+        style="position: fixed; right: 0px; left: 0px; bottom: 0px; font-family: 'Roboto'; background: rgb(97, 147, 255); height: 50px; text-align: center; color: white">
+        <div></div>
+        <div> &copy; 2020 - Alexander Kopp, Clemens Bartl, Elias Gander, Marta Perea</div>
+        <div></div>
+    </div>
+
+</div>

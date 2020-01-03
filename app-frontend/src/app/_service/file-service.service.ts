@@ -97,7 +97,7 @@ export class FileService {
   }
 
 
-  private readFile(filePath: string) {
+  public readFile(filePath: string) {
     return this.http.get(filePath, { responseType: 'text' as 'json' });
   }
 
