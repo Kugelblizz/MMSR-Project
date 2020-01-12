@@ -45,7 +45,7 @@ export class FileService {
 
 
   private readResultsFile() {
-    return this.readFile('/assets/results2.csv').toPromise().then((data: string) => {
+    return this.readFile('/assets/results_testset.csv').toPromise().then((data: string) => {
       const allResults: {movieId: string, movieclipId: string, sim: string, rank: string}[] = [];
       const dataLineSeparated = data.split('\n');
       for (const line of dataLineSeparated) {
